@@ -9,7 +9,7 @@ app.set("views", "./views");
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.send("The website: Restaurant List.g");
+  res.render("index");
 });
 
 app.listen(port, () => {

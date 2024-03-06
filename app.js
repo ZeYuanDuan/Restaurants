@@ -10,7 +10,7 @@ app.set("views", "./views");
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.redirect("/restaurant");
+  res.redirect("/restaurants");
 });
 
 app.get("/restaurants", (req, res) => {
@@ -19,10 +19,16 @@ app.get("/restaurants", (req, res) => {
 
 app.get("/restaurants/:id", (req, res) => {
   const id = req.params.id;
-  const restaurant = restaurants.find(
-    (restaurant) => restaurant.id.toString() === id
-  );
+  const restaurant = restaurants.find((rest) => rest.id.toString() === id);
   res.render("detail", { restaurant });
+});
+
+app.get("/search", (req, res) => {
+  const keyword = req.query.keyword;
+  const matchedRest = restaurants.filter((rest) =>
+    rest.name.toLowerCase().includes(keyword.toLowerCase())
+  );
+  res.render("index", { restaurants: matchedRest, keyword });
 });
 
 app.listen(port, () => {

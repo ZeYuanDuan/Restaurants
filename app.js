@@ -10,7 +10,19 @@ app.set("views", "./views");
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
+  res.redirect("/restaurant");
+});
+
+app.get("/restaurants", (req, res) => {
   res.render("index", { restaurants });
+});
+
+app.get("/restaurants/:id", (req, res) => {
+  const id = req.params.id;
+  const restaurant = restaurants.find(
+    (restaurant) => restaurant.id.toString() === id
+  );
+  res.render("detail", { restaurant });
 });
 
 app.listen(port, () => {

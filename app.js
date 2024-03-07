@@ -24,10 +24,14 @@ app.get("/restaurants/:id", (req, res) => {
 });
 
 app.get("/search", (req, res) => {
-  const keyword = req.query.keyword;
-  const matchedRest = restaurants.filter((rest) =>
-    rest.name.toLowerCase().includes(keyword.toLowerCase())
-  );
+  const keyword = req.query.keyword?.trim()?.toLowerCase();
+  const matchedRest = keyword
+    ? restaurants.filter((rest) =>
+        ["name", "category"].some((attr) =>
+          rest[attr].toLowerCase().includes(keyword)
+        )
+      )
+    : restaurants;
   res.render("index", { restaurants: matchedRest, keyword });
 });
 

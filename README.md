@@ -47,7 +47,7 @@ To access the website, enter the URL in your browser: [http://localhost:3000](ht
 
 ## Version Control
 
-This project has the package commitizen installed to assist developers in writing commit messages. The usage process is as follows:
+This project has the package [commitizen](https://www.npmjs.com/package/commitizen) installed to assist developers in writing commit messages. The usage process is as follows:
 
 1. As with regular git operations, use `git add` to add files to the staging area.
 2. You can use the traditional `git commit` to commit files, or use the command:

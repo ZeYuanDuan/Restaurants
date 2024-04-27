@@ -13,25 +13,28 @@ app.set("views", "./views");
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  // res.redirect("/restaurants");
-  return Restaurant.findAll({
-    attributes: [
-      `id`,
-      `name`,
-      `name_en`,
-      `category`,
-      `image`,
-      `location`,
-      `phone`,
-      `google_map`,
-      `rating`,
-      `description`,
-    ],
-    raw: true,
-  })
-    .then((rest) => res.send({ rest }))
-    .catch((err) => res.status(422).json(err));
+  res.redirect("/restaurants");
 });
+
+// app.get("/test", (req, res) => {
+//   return Restaurant.findAll({
+//     attributes: [
+//       `id`,
+//       `name`,
+//       `name_en`,
+//       `category`,
+//       `image`,
+//       `location`,
+//       `phone`,
+//       `google_map`,
+//       `rating`,
+//       `description`,
+//     ],
+//     raw: true,
+//   })
+//     .then((rest) => res.send({ rest }))
+//     .catch((err) => res.status(422).json(err));
+// });
 
 app.get("/restaurants", (req, res) => {
   res.render("index", { restaurants });

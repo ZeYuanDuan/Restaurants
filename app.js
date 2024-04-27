@@ -4,13 +4,33 @@ const app = express();
 const port = 3000;
 const restaurants = require("./public/jsons/restaurant.json").results;
 
+const db = require("./models");
+const Restaurant = db.Restaurant;
+
 app.engine(".hbs", engine({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
 app.set("views", "./views");
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.redirect("/restaurants");
+  // res.redirect("/restaurants");
+  return Restaurant.findAll({
+    attributes: [
+      `id`,
+      `name`,
+      `name_en`,
+      `category`,
+      `image`,
+      `location`,
+      `phone`,
+      `google_map`,
+      `rating`,
+      `description`,
+    ],
+    raw: true,
+  })
+    .then((rest) => res.send({ rest }))
+    .catch((err) => res.status(422).json(err));
 });
 
 app.get("/restaurants", (req, res) => {

@@ -17,7 +17,7 @@ This project requires [Node.js](https://nodejs.org/en) to be installed on your s
 
 ## Installing
 
-Execute the installation process in the terminal (for Windows users, execute on Git Bash):
+Execute the installation process in the terminal (for Windows users, execute on [Git Bash](https://gitforwindows.org/)):
 
 1. Use the following command to clone this project to your desired local folder:
 

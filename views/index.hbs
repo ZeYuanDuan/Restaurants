@@ -49,15 +49,19 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
 
+      <div class="mb-3 d-flex justify-content-between align-items-center">
+        <a href="/restaurants/new" class="btn btn-success">新增餐廳</a>
+      </div>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
         {{#each restaurants as |restaurant|}}
           <div class="mb-3">
             <a href="/restaurants/{{restaurant.id}}" class="text-secondary">
               <div class="card d-flex flex-column">
                 <img
                   class="card-img-top"
-                  src="{{restaurant.image}}"
+                  src="{{getImage restaurant.image}}"
                   alt="{{restaurant.name}}"
                 />
                 <div class="card-body p-3">
@@ -80,12 +84,12 @@
                 href="/restaurants/{{restaurant.id}}/edit"
                 class="btn btn-primary"
                 style="font-size: 15px; padding: 3px 6px; margin-left: 8px; margin-right: 8px;"
-              >Edit</a>
+              >編輯</a>
               <a
                 href="/restaurants/{{restaurant.id}}/delete"
                 class="btn btn-danger"
                 style="font-size: 15px; padding: 3px 6px"
-              >Delete</a>
+              >刪除</a>
             </div>
           </div>
 

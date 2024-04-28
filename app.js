@@ -1,23 +1,36 @@
 const express = require("express");
-const { engine } = require("express-handlebars");
 const app = express();
 const port = 3000;
-
-// const restaurants = require("./public/jsons/restaurant.json").results;
-const methodOverride = require("method-override");
 
 const db = require("./models");
 const Restaurant = db.Restaurant;
 
-app.engine(".hbs", engine({ extname: ".hbs" }));
+const { engine } = require("express-handlebars");
 app.set("view engine", ".hbs");
 app.set("views", "./views");
+app.engine(
+  ".hbs",
+  engine({
+    extname: ".hbs",
+    helpers: {
+      getImage: function (image) {
+        return image || defaultImage;
+      },
+    },
+  })
+);
+
+const defaultImage =
+  "https://files.oaiusercontent.com/file-M3zDX7pdTXc99vuXBiaVfkmq?se=2024-04-28T05%3A53%3A26Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3Daa6d215c-9c60-4252-99bb-b87ae6215305.webp&sig=g7AnWZ49hXmDcxtJCufgcWB9HCMr7omoY7EA3DKYiuA%3D";
 
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
+// ========================================
 app.get("/", (req, res) => {
   res.redirect("/restaurants");
 });
@@ -30,8 +43,22 @@ app.get("/restaurants", (req, res) => {
     .catch((err) => res.status(422).json(err));
 });
 
+app.post("/restaurants", async (req, res) => {
+  const body = req.body;
+
+  return await Restaurant.create(body)
+    .then(() => {
+      res.render("detail", { restaurant: body });
+    })
+    .catch((error) => console.log(error));
+});
+
+app.get("/restaurants/new", (req, res) => {
+  return res.render("new");
+});
+
 app.get("/restaurants/:id", (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   return Restaurant.findByPk(id, {
     raw: true,
@@ -45,14 +72,19 @@ app.get("/restaurants/:id", (req, res) => {
     .catch((err) => res.status(422).json(err));
 });
 
-// app.get("/restaurants/:id", (req, res) => {
-//   const id = req.params.id;
-//   const restaurant = restaurants.find((rest) => rest.id.toString() === id);
-//   res.render("detail", { restaurant });
-// });
+app.put("/restaurants/:id", (req, res) => {
+  const { id } = req.params;
+
+  return Restaurant.update(req.body, { where: { id } })
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch((error) => {
+      res.status(500).send("更新資料庫出現錯誤");
+      console.error(error);
+    });
+});
 
 app.get("/restaurants/:id/edit", (req, res) => {
-  id = req.params.id;
+  const { id } = req.params;
 
   return Restaurant.findByPk(id, {
     raw: true,
@@ -64,29 +96,18 @@ app.get("/restaurants/:id/edit", (req, res) => {
     });
 });
 
-app.put("/restaurants/:id", async (req, res) => {
+app.get("/restaurants/:id/delete", (req, res) => {
   const { id } = req.params;
 
-  try {
-    await Restaurant.update(req.body, { where: { id } });
-    res.redirect(`/restaurants/${id}`);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("更新資料庫出現錯誤");
-  }
+  return Restaurant.destroy({ where: { id } })
+    .then(() => {
+      res.redirect("/restaurants");
+    })
+    .catch((error) => {
+      res.status(500).send("刪除資料庫出現錯誤");
+      console.error(error);
+    });
 });
-
-// app.get("/search", (req, res) => {
-//   const keyword = req.query.keyword?.trim()?.toLowerCase();
-//   const matchedRest = keyword
-//     ? restaurants.filter((rest) =>
-//         ["name", "category"].some((attr) =>
-//           rest[attr].toLowerCase().includes(keyword)
-//         )
-//       )
-//     : restaurants;
-//   res.render("index", { restaurants: matchedRest, keyword });
-// });
 
 app.get("/search", (req, res) => {
   const keyword = req.query.keyword?.trim()?.toLowerCase();
@@ -106,7 +127,6 @@ app.get("/search", (req, res) => {
         },
       ],
     },
-    // attributes: attributes,
     raw: true,
   })
     .then((matchedRest) => {

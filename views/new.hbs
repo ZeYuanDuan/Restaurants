@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 mx-auto">
-        <h1 class="mb-3">編輯餐廳資訊</h1>
+        <h1 class="mb-3">新增餐廳資訊</h1>
         <a
           href="/restaurants/{{restaurant.id}}"
           class="btn btn-secondary mb-3"
@@ -12,7 +12,7 @@
   </div>
 </header>
 
-<form action="/restaurants/{{restaurant.id}}?_method=PUT" method="POST">
+<form action="/restaurants" method="POST">
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 mx-auto">
@@ -25,7 +25,7 @@
           <input
             type="text"
             name="name"
-            value="{{restaurant.name}}"
+            placeholder="填入餐廳名稱"
             class="form-control"
             required
           />
@@ -39,7 +39,7 @@
           <input
             type="text"
             name="name_en"
-            value="{{restaurant.name_en}}"
+            placeholder="填入餐廳名稱 (英文)"
             class="form-control"
           />
         </p>
@@ -52,7 +52,7 @@
           <input
             type="text"
             name="category"
-            value="{{restaurant.category}}"
+            placeholder="填入餐廳類別"
             class="form-control"
             required
           />
@@ -66,7 +66,7 @@
           <input
             type="text"
             name="location"
-            value="{{restaurant.location}}"
+            placeholder="填入餐廳地址"
             class="form-control"
             required
           />
@@ -80,7 +80,7 @@
           <input
             type="text"
             name="google_map"
-            value="{{restaurant.google_map}}"
+            placeholder="填入 Google Map 連結"
             class="form-control"
           />
         </p>
@@ -93,7 +93,7 @@
           <input
             type="text"
             name="phone"
-            value="{{restaurant.phone}}"
+            placeholder="填入餐廳電話"
             class="form-control"
             required
           />
@@ -108,7 +108,8 @@
             name="description"
             class="form-control"
             rows="5"
-          >{{restaurant.description}}</textarea>
+            placeholder="在此新增簡介"
+          ></textarea>
         </p>
 
         <p class="mb-2">
@@ -119,14 +120,14 @@
           <input
             type="text"
             name="image_url"
-            value="{{restaurant.image}}"
+            placeholder="加入圖片連結 (若沒有加入，以下為預設圖片)"
             class="form-control"
           />
         </p>
 
         <img
           class="rounded mx-auto d-block mb-4 w-100"
-          src="{{restaurant.image}}"
+          src="{{getImage restaurant.image}}"
           alt="{{restaurant.name}}"
           style="max-width: 600px;"
         />

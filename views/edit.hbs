@@ -118,15 +118,15 @@
           </span>
           <input
             type="text"
-            name="image_url"
-            value="{{restaurant.image}}"
+            name="image"
+            value="{{getImage restaurant.image}}"
             class="form-control"
           />
         </p>
 
         <img
           class="rounded mx-auto d-block mb-4 w-100"
-          src="{{restaurant.image}}"
+          src="{{getImage restaurant.image}}"
           alt="{{restaurant.name}}"
           style="max-width: 600px;"
         />

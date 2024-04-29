@@ -1,14 +1,23 @@
-# AC Restaurant List
+# AC Restaurants
 
 Explore restaurants by name and category, discovering detailed information and ratings on our website. It's built by using [Node.js](https://nodejs.org/en) + [Express](https://www.npmjs.com/package/express), with the template engine [express-handlebars](https://www.npmjs.com/package/express-handlebars) and ORM [Sequelize](https://www.npmjs.com/package/sequelize), which connects to the RDBMS [MySQL](https://www.mysql.com/).
 
 ## Preview
 
-![website preview](image\website-repview-CRUD.png)
+![website preview](./image/website-repview-CRUD.png)
 
 ## Environment Setup
 
 This project requires [Node.js](https://nodejs.org/en) to be installed on your system for execution.
+
+Furthermore, before running the project, you must set up a MySQL database:
+
+1. Install MySQL on your system if it's not already installed. You can download it from [MySQL's official website](https://www.mysql.com/downloads/).
+
+2. Open your MySQL client (such as MySQL Workbench or command-line client) and create a new database for the project:
+   ```sql
+   CREATE DATABASE restaurant;
+   ```
 
 ## Features
 
@@ -28,7 +37,7 @@ Execute the installation process in the terminal (for Windows users, execute on 
 
 4. Initialize sequelize: `npx sequelize init`
 
-5. Execute the last migration (integrated all the previous changes): `npx sequelize-cli db:migrate --to migrations\20240429073932-integration.js`
+5. Execute the migrations: `npx sequelize-cli db:migrate`
 
 6. Execute the seeder: `npx sequelize db:seed:all`
 
@@ -44,9 +53,15 @@ This project has the package [commitizen](https://www.npmjs.com/package/commitiz
 2. You can use the traditional `git commit` to commit files, or use the command:
 
 ```
+
 npm run commit
+
 ```
 
 3. At this point, an interactive console window will appear. Select the type of changes made (build, feat, etc.) and follow the prompts to fill in the message.
 
 For more information, visit [commitizen](https://www.npmjs.com/package/commitizen).
+
+```
+
+```

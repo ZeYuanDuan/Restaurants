@@ -14,10 +14,23 @@ Furthermore, before running the project, you must set up a MySQL database:
 
 1. Install MySQL on your system if it's not already installed. You can download it from [MySQL's official website](https://www.mysql.com/downloads/).
 
-2. Open your MySQL client (such as MySQL Workbench or command-line client) and create a new database for the project:
+2. Open your MySQL client (such as [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) or command-line client) and create a new database for the project:
+
    ```sql
    CREATE DATABASE restaurant;
    ```
+
+3. After creating the database, open the config/config.json file in your project directory. Verify and update the development environment configuration to match your database credentials.This step is crucial to ensure that Sequelize can connect to your MySQL database properly. Here’s an example configuration:
+
+```json
+"development": {
+    "username": "root",
+    "password": "password",
+    "database": "restaurant",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+```
 
 ## Features
 
@@ -53,15 +66,9 @@ This project has the package [commitizen](https://www.npmjs.com/package/commitiz
 2. You can use the traditional `git commit` to commit files, or use the command:
 
 ```
-
 npm run commit
-
 ```
 
 3. At this point, an interactive console window will appear. Select the type of changes made (build, feat, etc.) and follow the prompts to fill in the message.
 
 For more information, visit [commitizen](https://www.npmjs.com/package/commitizen).
-
-```
-
-```

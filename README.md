@@ -8,9 +8,9 @@ Explore restaurants by name and category, discovering detailed information and r
 
 ## Environment Setup
 
-- This project requires [Node.js](https://nodejs.org/en) to be installed on your system for execution.
+This project requires [Node.js](https://nodejs.org/en) to be installed on your system for execution.
 
-- Furthermore, before running the project, you must set up a MySQL database:
+Furthermore, before running the project, you must set up a MySQL database:
 
 1. Install MySQL on your system if it's not already installed. You can download it from [MySQL's official website](https://www.mysql.com/downloads/).
 
@@ -20,7 +20,7 @@ Explore restaurants by name and category, discovering detailed information and r
    CREATE DATABASE restaurant;
    ```
 
-3. After creating the database, open the config/config.json file in your project directory. Verify and update the development environment configuration to match your database credentials. Here’s an example configuration:
+3. After creating the database, open the config/config.json file in your project directory. Verify and update the development environment configuration to match your database credentials.This step is crucial to ensure that Sequelize can connect to your MySQL database properly. Here’s an example configuration:
 
 ```json
 "development": {

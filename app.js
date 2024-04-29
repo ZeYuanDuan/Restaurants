@@ -102,7 +102,7 @@ app.get("/restaurants/:id/edit", (req, res) => {
     });
 });
 
-app.get("/restaurants/:id/delete", (req, res) => {
+app.post("/restaurants/:id/delete", (req, res) => {
   const { id } = req.params;
 
   return Restaurant.destroy({ where: { id } })

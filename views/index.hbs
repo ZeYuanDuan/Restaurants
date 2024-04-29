@@ -90,7 +90,7 @@
                 href="#"
                 class="btn btn-danger"
                 style="font-size: 15px; padding: 3px 6px"
-                onclick="confirmDelete('{{restaurant.id}}', '{{restaurant.name}}')"
+                onclick="confirmDelete('{{restaurant.id}}', '{{restaurant.name}}', event)"
               >刪除</a>
 
             </div>
@@ -104,11 +104,4 @@
 </div>
 
 {{! ========== Script ========== }}
-<script>
-  function confirmDelete(id, name) { if (confirm(`確定要刪除 ${name} 嗎？`)) {
-  fetch(`/restaurants/${id}/delete`, { method: 'POST' }) .then(response => { if
-  (response.ok) { window.location.href = '/restaurants'; } else {
-  alert('刪除餐廳時發生錯誤'); } }).catch(error => console.error('Error:',
-  error)); } }
-
-</script>
+<script src="/javascripts/index.js"></script>

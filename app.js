@@ -56,7 +56,7 @@ app.post("/restaurants", async (req, res) => {
     .then(() => {
       res.render("detail", { restaurant: body });
     })
-    .catch((error) => console.log(error));
+    .catch((err) => console.log(err));
 });
 
 app.get("/restaurants/new", (req, res) => {
@@ -83,9 +83,9 @@ app.put("/restaurants/:id", (req, res) => {
 
   return Restaurant.update(req.body, { where: { id } })
     .then(() => res.redirect(`/restaurants/${id}`))
-    .catch((error) => {
+    .catch((err) => {
       res.status(500).send("更新資料庫出現錯誤");
-      console.error(error);
+      console.error(err);
     });
 });
 
@@ -96,8 +96,8 @@ app.get("/restaurants/:id/edit", (req, res) => {
     raw: true,
   })
     .then((restaurant) => res.render("edit", { restaurant }))
-    .catch((error) => {
-      console.error(error);
+    .catch((err) => {
+      console.error(err);
       res.status(500).send("更新資料庫出現錯誤");
     });
 });
@@ -109,9 +109,9 @@ app.post("/restaurants/:id/delete", (req, res) => {
     .then(() => {
       res.redirect("/restaurants");
     })
-    .catch((error) => {
+    .catch((err) => {
       res.status(500).send("刪除資料庫出現錯誤");
-      console.error(error);
+      console.error(err);
     });
 });
 

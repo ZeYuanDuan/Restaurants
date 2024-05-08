@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Restaurant extends Model {
     /**
@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       // define association here
     }
   }
@@ -17,43 +17,43 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false,
+        allowNull: false
       },
       name: {
         type: DataTypes.STRING(255),
-        allowNull: false,
+        allowNull: false
       },
       name_en: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(255)
       },
       category: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(255)
       },
       image: {
         type: DataTypes.STRING(1024),
-        allowNull: true,
+        allowNull: true
       },
       location: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(255)
       },
       phone: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(20)
       },
       google_map: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(255)
       },
       rating: {
-        type: DataTypes.DECIMAL(3, 1),
+        type: DataTypes.DECIMAL(3, 1)
       },
       description: {
-        type: DataTypes.TEXT,
-      },
+        type: DataTypes.TEXT
+      }
     },
     {
       sequelize,
-      modelName: "Restaurant",
-      tableName: "restaurants",
+      modelName: 'Restaurant',
+      tableName: 'restaurants'
     }
-  );
-  return Restaurant;
-};
+  )
+  return Restaurant
+}

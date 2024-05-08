@@ -4,7 +4,7 @@ Explore restaurants by name and category, discovering detailed information and r
 
 ## Preview
 
-![website preview](./image/website-repview-CRUD.png)
+![website preview](./image/website-preview-CRUD.png)
 
 ## Environment Setup
 

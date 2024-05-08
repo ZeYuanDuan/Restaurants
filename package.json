@@ -20,8 +20,11 @@
     "sequelize-cli": "^6.6.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.1.1",
     "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-conventional-changelog": "^3.3.0",
+    "globals": "^15.1.0",
+    "standard": "^17.1.0"
   },
   "config": {
     "commitizen": {

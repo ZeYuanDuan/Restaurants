@@ -17,6 +17,9 @@ app.engine(
       },
       getRating: function (rating) {
         return rating || defaultRating
+      },
+      eq: function (a, b) {
+        return a === b
       }
     }
   })
@@ -45,7 +48,6 @@ app.use(flash())
 
 const router = require('./routes')
 app.use(router)
-
 // =============== Middlewares ===============
 
 app.listen(port, () => {

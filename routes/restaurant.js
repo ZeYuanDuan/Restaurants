@@ -5,32 +5,41 @@ const db = require('../models')
 const Restaurant = db.Restaurant
 
 router.get('/', (req, res) => {
-  const keyword = req.query.keyword?.trim()?.toLowerCase()
+  const { keyword, sort } = req.query
+  const options = {
+    raw: true,
+    order: []
+  }
 
-  const query = keyword
-    ? {
-        where: {
-          [db.Sequelize.Op.or]: [
-            {
-              name: {
-                [db.Sequelize.Op.like]: `%${keyword}%`
-              }
-            },
-            {
-              category: {
-                [db.Sequelize.Op.like]: `%${keyword}%`
-              }
-            }
-          ]
-        },
-        raw: true
-      }
-    : { raw: true }
+  if (keyword) {
+    options.where = {
+      [db.Sequelize.Op.or]: [
+        { name: { [db.Sequelize.Op.like]: `%${keyword}%` } },
+        { category: { [db.Sequelize.Op.like]: `%${keyword}%` } }
+      ]
+    }
+  }
 
-  return Restaurant.findAll(query)
+  if (sort) {
+    switch (sort) {
+      case 'A-Z':
+        options.order.push(['name', 'ASC'])
+        break
+      case 'Z-A':
+        options.order.push(['name', 'DESC'])
+        break
+      case 'category':
+        options.order.push(['category', 'ASC'])
+        break
+      case 'location':
+        options.order.push(['location', 'ASC'])
+        break
+    }
+  }
+
+  return Restaurant.findAll(options)
     .then((restaurants) => {
-      console.log(restaurants)
-      return res.render('index', { restaurants, keyword })
+      return res.render('index', { restaurants, keyword, sort })
     })
     .catch((err) => res.status(422).json(err))
 })

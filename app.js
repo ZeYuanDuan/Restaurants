@@ -45,115 +45,11 @@ app.use(
   })
 )
 app.use(flash())
+
+const router = require('./routes')
+app.use(router)
+
 // =============== Middlewares ===============
-
-// =============== Routers ===============
-app.get('/', (req, res) => {
-  res.redirect('/restaurants')
-})
-
-app.get('/restaurants', (req, res) => {
-  return Restaurant.findAll({
-    raw: true
-  })
-    .then((restaurants) => res.render('index', { restaurants }))
-    .catch((err) => res.status(422).json(err))
-})
-
-app.post('/restaurants', async (req, res) => {
-  const body = req.body
-
-  return await Restaurant.create(body)
-    .then(() => {
-      res.render('detail', { restaurant: body })
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-})
-
-app.get('/restaurants/new', (req, res) => {
-  return res.render('new')
-})
-
-app.get('/restaurants/:id', (req, res) => {
-  const { id } = req.params
-
-  return Restaurant.findByPk(id, {
-    raw: true
-  })
-    .then((restaurant) => {
-      if (!restaurant) {
-        return res.status(404).send('尚未建立任何餐廳')
-      }
-      res.render('detail', { restaurant })
-    })
-    .catch((err) => res.status(422).json(err))
-})
-
-app.put('/restaurants/:id', (req, res) => {
-  const { id } = req.params
-
-  return Restaurant.update(req.body, { where: { id } })
-    .then(() => res.redirect(`/restaurants/${id}`))
-    .catch((err) => {
-      res.status(500).send('更新資料庫出現錯誤')
-      console.error(err)
-    })
-})
-
-app.get('/restaurants/:id/edit', (req, res) => {
-  const { id } = req.params
-
-  return Restaurant.findByPk(id, {
-    raw: true
-  })
-    .then((restaurant) => res.render('edit', { restaurant }))
-    .catch((err) => {
-      console.error(err)
-      res.status(500).send('更新資料庫出現錯誤')
-    })
-})
-
-app.post('/restaurants/:id/delete', (req, res) => {
-  const { id } = req.params
-
-  return Restaurant.destroy({ where: { id } })
-    .then(() => {
-      res.redirect('/restaurants')
-    })
-    .catch((err) => {
-      res.status(500).send('刪除資料庫出現錯誤')
-      console.error(err)
-    })
-})
-
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword?.trim()?.toLowerCase()
-
-  return Restaurant.findAll({
-    where: {
-      [db.Sequelize.Op.or]: [
-        {
-          name: {
-            [db.Sequelize.Op.like]: `%${keyword}%`
-          }
-        },
-        {
-          category: {
-            [db.Sequelize.Op.like]: `%${keyword}%`
-          }
-        }
-      ]
-    },
-    raw: true
-  })
-    .then((matchedRest) => {
-      res.render('index', { restaurants: matchedRest, keyword })
-    })
-    .catch((err) => res.status(422).json(err))
-})
-// =============== Routers ===============
 
 app.listen(port, () => {
   console.log(`express server is running on http://localhost:${port}`)

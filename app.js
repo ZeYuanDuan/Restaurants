@@ -4,9 +4,6 @@ const session = require('express-session')
 const app = express()
 const port = 3000
 
-const db = require('./models')
-const Restaurant = db.Restaurant
-
 const { engine } = require('express-handlebars')
 app.set('view engine', '.hbs')
 app.set('views', './views')

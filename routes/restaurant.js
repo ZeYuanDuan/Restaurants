@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
             }
           ]
         },
-        raw: true,
+        raw: true
       }
     : { raw: true }
 

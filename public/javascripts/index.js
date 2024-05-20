@@ -1,3 +1,5 @@
+/* global confirm, alert */
+
 function confirmDelete (id, name, event) {
   event.preventDefault()
   const scrollPosition = window.scrollY
@@ -19,3 +21,5 @@ function confirmDelete (id, name, event) {
       })
   }
 }
+
+window.confirmDelete = confirmDelete

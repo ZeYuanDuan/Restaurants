@@ -3,12 +3,13 @@ function confirmDelete (id, name, event) {
   const scrollPosition = window.scrollY
 
   if (confirm(`確定要刪除「${name}」？`)) {
-    fetch(`/restaurants/${id}/delete`, { method: 'POST' })
-      .then((response) => {
-        if (response.ok) {
+    fetch(`/restaurants/${id}`, { method: 'DELETE' })
+      .then((response) => response.json())
+      .then(data => {
+        if (data.success) {
           window.location.href = '/restaurants'
         } else {
-          alert('刪除餐廳時發生錯誤')
+          alert('刪除餐廳時發生錯誤: ' + data.message)
           window.scrollTo(0, scrollPosition)
         }
       })

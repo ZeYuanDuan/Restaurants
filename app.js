@@ -26,7 +26,7 @@ app.engine(
 )
 
 const defaultImage =
-  'https://files.oaiusercontent.com/file-M3zDX7pdTXc99vuXBiaVfkmq?se=2024-04-28T05%3A53%3A26Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3Daa6d215c-9c60-4252-99bb-b87ae6215305.webp&sig=g7AnWZ49hXmDcxtJCufgcWB9HCMr7omoY7EA3DKYiuA%3D'
+  'https://plus.unsplash.com/premium_photo-1674004585426-c6ad2adbe4c0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D'
 const defaultRating = '尚無評分'
 
 // =============== Middlewares ===============

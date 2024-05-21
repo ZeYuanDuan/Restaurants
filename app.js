@@ -4,6 +4,11 @@ const session = require('express-session')
 const app = express()
 const port = 3000
 
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
+console.log('Session Secret:', process.env.SESSION_SECRET) // Verify Session Secret
+
 const { engine } = require('express-handlebars')
 app.set('view engine', '.hbs')
 app.set('views', './views')
@@ -39,7 +44,7 @@ app.use(methodOverride('_method'))
 
 app.use(
   session({
-    secret: 'ThisIsSecret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
   })

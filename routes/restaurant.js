@@ -4,10 +4,16 @@ const router = express.Router()
 const db = require('../models')
 const Restaurant = db.Restaurant
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   const { keyword, sort } = req.query
+  const page = parseInt(req.query.page) || 1
+  const limit = 9
+  const offset = (page - 1) * limit
+
   const options = {
     raw: true,
+    limit,
+    offset,
     order: []
   }
 
@@ -37,9 +43,20 @@ router.get('/', (req, res) => {
     }
   }
 
+  const totalItems = await Restaurant.count(options)
+  const totalPages = Math.ceil(totalItems / limit)
+
   return Restaurant.findAll(options)
     .then((restaurants) => {
-      return res.render('index', { restaurants, keyword, sort })
+      return res.render('index', {
+        restaurants,
+        totalPages,
+        prev: page > 1 ? page - 1 : null,
+        next: page < totalPages ? page + 1 : null,
+        page,
+        keyword,
+        sort
+      })
     })
     .catch((err) => res.status(422).json(err))
 })

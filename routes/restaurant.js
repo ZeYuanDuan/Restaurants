@@ -4,6 +4,8 @@ const router = express.Router()
 const db = require('../models')
 const Restaurant = db.Restaurant
 
+const fetchRestaurantById = require('../middlewares/fetchRestaurantById')
+
 router.get('/', async (req, res) => {
   const { keyword, sort } = req.query
   const page = parseInt(req.query.page) || 1
@@ -77,22 +79,11 @@ router.get('/new', (req, res) => {
   return res.render('new')
 })
 
-router.get('/:id', (req, res) => {
-  const { id } = req.params
-
-  return Restaurant.findByPk(id, {
-    raw: true
-  })
-    .then((restaurant) => {
-      if (!restaurant) {
-        return res.status(404).send('尚未建立任何餐廳')
-      }
-      res.render('detail', { restaurant })
-    })
-    .catch((err) => res.status(422).json(err))
+router.get('/:id', fetchRestaurantById, (req, res) => {
+  res.render('detail', { restaurant: req.restaurant })
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', fetchRestaurantById, (req, res) => {
   const { id } = req.params
 
   return Restaurant.update(req.body, { where: { id } })
@@ -103,17 +94,8 @@ router.put('/:id', (req, res) => {
     })
 })
 
-router.get('/:id/edit', (req, res) => {
-  const { id } = req.params
-
-  return Restaurant.findByPk(id, {
-    raw: true
-  })
-    .then((restaurant) => res.render('edit', { restaurant }))
-    .catch((err) => {
-      console.error(err)
-      res.status(500).send('更新資料庫出現錯誤')
-    })
+router.get('/:id/edit', fetchRestaurantById, (req, res) => {
+  res.render('edit', { restaurant: req.restaurant })
 })
 
 router.delete('/:id', (req, res) => {

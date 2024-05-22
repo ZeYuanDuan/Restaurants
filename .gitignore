@@ -31,4 +31,14 @@ npm-debug.log
 
 .DS_Store
 
+# dotenv environment variables file
 .env
+
+# IDE directories and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore ESLint config file
+.eslintrc.json

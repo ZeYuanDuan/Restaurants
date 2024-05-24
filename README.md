@@ -4,7 +4,7 @@ Explore restaurants by name and category, discovering detailed information and r
 
 ## Preview
 
-![website preview](./image/website-preview-CRUD.png)
+![website preview](./image/website-preview-middleware.png)
 
 ## Environment Setup
 
@@ -37,6 +37,7 @@ Furthermore, before running the project, you must set up a MySQL database:
 - Users can click on restaurants to view detailed information.
 - Users can add new restaurants to the list and update or delete existing ones.
 - Users can search by restaurant name or category.
+- Users can sort restaurants in various orders
 
 ## Installing
 

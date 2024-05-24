@@ -55,7 +55,9 @@ Execute the installation process in the terminal (for Windows users, execute on 
 
 6. Execute the seeder: `npx sequelize db:seed:all`
 
-7. run the server: `npm run dev`
+7. Start the server: `npm run start` 
+
+8. Run the server: `npm run dev`
 
 To access the website, enter the URL in your browser: [http://localhost:3000](http://localhost:3000), or click on the link in the console.
 

@@ -3,7 +3,7 @@
     "username": "root",
     "password": "password",
     "database": "restaurant",
-    "host": "35.79.29.170",  // "host": "127.0.0.1",
+    "host": "35.79.29.170",  
     "dialect": "mysql",
     "logQueryParameters": true
   },

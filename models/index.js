@@ -13,7 +13,18 @@ let sequelize
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config)
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config)
+  // sequelize = new Sequelize(config.database, config.username, config.password, config)  // original code
+  sequelize = new Sequelize(
+    process.env.DB_NAME || config.database,
+    process.env.DB_USERNAME || config.username,
+    process.env.DB_PASSWORD || config.password,
+    {
+      host: process.env.DB_HOST || config.host,
+      port: process.env.DB_PORT || config.port,
+      dialect: 'mysql',
+      logging: config.logging,
+    }
+  )
 }
 
 fs
